@@ -14,11 +14,13 @@ const medicalRecordSchema = new Schema<IMedicalRecord>(
     patient: {
       type: Schema.Types.ObjectId,
       ref: DATABASES.PATIENT,
+      required: true,
       autopopulate: true,
     },
     doctor: {
       type: Schema.Types.ObjectId,
       ref: DATABASES.DOCTOR,
+      required: true,
       autopopulate: true,
     },
     diagnosis: String,
@@ -26,7 +28,7 @@ const medicalRecordSchema = new Schema<IMedicalRecord>(
     tests: [medicalTestSchema],
     deleted: {
       type: Schema.Types.Boolean,
-      required: true,
+      required: false,
       select: false,
       default: false,
     },

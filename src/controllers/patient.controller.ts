@@ -3,8 +3,25 @@ import { patientService } from '../services';
 import { SuccessResponse, InternalErrorResponse, NotFoundResponse } from '../helpers/response';
 import { MESSAGES } from '../constants';
 
+async function generateUniquePTNumber() {
+  while (true) {
+    const min = 1000000000; // Minimum 10-digit number
+    const max = 9999999999; // Maximum 10-digit number
+
+    const ptNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+    const ptNumberStr = ptNumber.toString();
+
+    const existingAccount = await patientService.findOne({ pt_number: ptNumberStr });
+
+    if (!existingAccount) return ptNumberStr;
+  }
+}
+
 class Controller {
   async create(req: Request, res: Response) {
+    req.body.user = res.locals.user._id;
+    req.body.pt_number = 'PT' + (await generateUniquePTNumber()).toString();
+
     const data = await patientService.create(req.body);
 
     if (!data) return InternalErrorResponse(res);
@@ -23,6 +40,16 @@ class Controller {
 
     if (!data) return InternalErrorResponse(res);
     if (data.length === 0) return NotFoundResponse(res);
+
+    return SuccessResponse(res, data);
+  }
+
+  async getProfile(req: Request, res: Response) {
+    const { id } = res.locals.user;
+
+    const data = await patientService.findOne({ user: id });
+
+    if (!data) return NotFoundResponse(res);
 
     return SuccessResponse(res, data);
   }

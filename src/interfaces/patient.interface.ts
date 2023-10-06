@@ -3,7 +3,7 @@ import { ObjectId, Document } from 'mongoose';
 export default interface Patient extends Document {
   id?: string | ObjectId;
   user: string | ObjectId;
-  pt_number: number;
+  pt_number: string;
   birth_date: Date;
   phone_number: string;
   address: string;

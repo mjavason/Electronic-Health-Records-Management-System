@@ -27,6 +27,16 @@ class Controller {
     return SuccessResponse(res, data);
   }
 
+  async getProfile(req: Request, res: Response) {
+    const { id } = res.locals.user;
+
+    const data = await patientService.findOne({ user: id });
+
+    if (!data) return NotFoundResponse(res);
+
+    return SuccessResponse(res, data);
+  }
+
   async getCount(req: Request, res: Response) {
     const data = await patientService.getCount(req.query);
 

@@ -30,16 +30,16 @@ router.post(
   medicalRecordController.create,
 );
 
-// router.patch(
-//   '/:id',
-//   [processRequestBody(medicalRecordValidation.update.body)],
-//   medicalRecordController.update,
-// );
+router.patch(
+  '/:id',
+  [processRequestBody(medicalRecordValidation.update.body)],
+  medicalRecordController.update,
+);
 
-// router.delete(
-//   '/:id',
-//   [processRequestParams(medicalRecordValidation.delete.params)],
-//   medicalRecordController.delete,
-// );
+router.delete(
+  '/:id',
+  [processRequestParams(medicalRecordValidation.delete.params)],
+  medicalRecordController.delete,
+);
 
 export default router;

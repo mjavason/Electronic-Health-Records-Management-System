@@ -16,7 +16,7 @@ class Validation {
       tests: z.array(
         z.object({
           test_name: z.string(),
-          test_date: z.date(),
+          test_date: z.string(),
           results: z.string(),
         }),
       ),
@@ -45,7 +45,7 @@ class Validation {
         .array(
           z.object({
             test_name: z.string(),
-            test_date: z.date(),
+            test_string: z.string(),
             results: z.string(),
           }),
         )
@@ -86,17 +86,6 @@ class Validation {
         })
         .optional(),
       diagnosis: z.string().optional(),
-      medications: z.array(z.string()).optional(),
-      tests: z
-        .array(
-          z.object({
-            test_name: z.string(),
-            test_date: z.date(),
-            results: z.string(),
-          }),
-        )
-        .optional(),
-      deleted: z.boolean().optional(),
       // Add validations for other fields as needed
     }),
   };

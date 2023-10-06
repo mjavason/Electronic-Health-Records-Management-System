@@ -9,9 +9,10 @@ const patientSchema = new Schema<IPatient>(
       type: Schema.Types.ObjectId,
       ref: DATABASES.USER, // Reference to the User model (replace 'User' with your actual User model name)
       autopopulate: true, // Enable autopopulation
+      required: true,
     },
     pt_number: {
-      type: Number,
+      type: String,
       required: true,
       unique: true,
     },
@@ -29,7 +30,7 @@ const patientSchema = new Schema<IPatient>(
     },
     deleted: {
       type: Boolean,
-      required: true,
+      required: false,
       select: false,
       default: false,
     },
@@ -42,6 +43,6 @@ const patientSchema = new Schema<IPatient>(
 // Apply the autopopulate plugin to the schema
 patientSchema.plugin(autopopulate);
 
-const PatientModel = model<IPatient>('Patient', patientSchema);
+const PatientModel = model<IPatient>(DATABASES.PATIENT, patientSchema);
 
 export default PatientModel;

@@ -5,6 +5,8 @@ import { MESSAGES } from '../constants';
 
 class Controller {
   async create(req: Request, res: Response) {
+    req.body.user = res.locals.user._id;
+    
     const data = await doctorService.create(req.body);
 
     if (!data) return InternalErrorResponse(res);
